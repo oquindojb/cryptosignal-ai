@@ -1,0 +1,24 @@
+CRYPTO SIGNAL AI v0.6.1 — RAILWAY DEPLOYMENT
+
+This version fixes the previous Docker build-context problem.
+
+IMPORTANT:
+- Docker only copies the backend/ directory.
+- The mobile frontend is inside backend/static/.
+- Do NOT set a custom Root Directory in Railway.
+- Do NOT edit the Dockerfile.
+- Do NOT add API keys until the first deployment succeeds.
+
+Expected project root:
+Dockerfile
+railway.toml
+backend/
+app/                 (kept as source copy; Docker does not depend on it)
+
+After deployment, test:
+https://YOUR-RAILWAY-DOMAIN/api/health
+
+Expected:
+{"ok":true,"service":"cryptosignal-api","version":"0.6.0"}
+
+Then open the base Railway URL. The mobile app should load from the same address.

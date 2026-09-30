@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06090f">
+  <meta name="description" content="CryptoSignal AI — early crypto market intelligence and transparent decision support.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CryptoSignal">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css?v=0.7">
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand-wrap">
+      <div class="brand-mark"><span></span><span></span><span></span></div>
+      <div><div class="brand">CryptoSignal <em>AI</em></div><div class="tagline">Market intelligence terminal</div></div>
+    </div>
+    <div class="top-actions">
+      <button id="installBtn" class="install-btn" hidden>Install</button>
+      <div class="status" id="status"><i></i> Connecting</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="market-ticker" id="marketGrid" aria-label="Live market prices"></section>
+
+    <section class="command-row">
+      <div>
+        <div class="eyebrow">CRYPTO MARKET INTELLIGENCE</div>
+        <h1>Know what matters <span>now.</span></h1>
+        <p>Fresh events + market reaction + evidence. No signal is forced when the data is weak.</p>
+      </div>
+      <button id="scanBtn" class="scan-btn"><span class="scan-icon">↻</span><span>Scan Now</span></button>
+    </section>
+    <div class="live-meta"><span class="live-dot"></span><span id="lastScan">Waiting for live data</span><span class="meta-sep">•</span><span>Auto refresh 15s</span></div>
+
+    <section class="actionable-card" id="actionableCard">
+      <div class="actionable-topline"><div class="eyebrow">ACTIONABLE NOW</div><span class="live-pill" id="marketLivePill"><i></i> LIVE</span></div>
+      <div class="actionable-main">
+        <div class="actionable-copy">
+          <h2 id="actionableTitle">Checking latest signals…</h2>
+          <p id="actionableSummary">The engine is checking fresh catalysts, verified evidence and market confirmation.</p>
+        </div>
+        <div class="signal-count"><strong id="signalCount">0</strong><span>directional<br>signals</span></div>
+      </div>
+      <div class="actionable-list" id="actionableList"></div>
+      <div class="actionable-foot"><span id="marketUpdated">Waiting for live market data</span><button id="actionableScan" class="text-btn">Run full scan →</button></div>
+    </section>
+
+    <section class="radar-section" id="radarSection">
+      <div class="section-head"><div><div class="eyebrow">MARKET RADAR</div><h2>Watchlist pulse</h2></div><span class="section-note">7 tracked assets</span></div>
+      <div class="radar-grid" id="assetRadar"></div>
+    </section>
+
+    <section class="intel-grid">
+      <article class="intel-card mood-card"><div class="card-kicker">MARKET MOOD</div><div class="mood-value" id="fearGreed">Loading…</div><p id="fearGreedText">Alternative.me Fear &amp; Greed</p></article>
+      <article class="intel-card"><div class="card-kicker">DATA HEALTH</div><div id="providerStatus" class="provider-status">Checking…</div></article>
+      <article class="intel-card alert-card"><div class="card-kicker">ALERTS</div><h3>Phone notifications</h3><button id="alertsBtn" class="small-btn">Enable alerts</button><p id="alertsStatus">Optional. Requires HTTPS and browser permission.</p></article>
+    </section>
+
+    <section class="section-head feed-head" id="signalsSection">
+      <div><div class="eyebrow">SIGNAL FEED</div><h2>What changed?</h2></div>
+      <select id="filter" aria-label="Filter signals"><option value="all">All signals</option><option value="BUY">BUY</option><option value="HOLD">HOLD</option><option value="SELL">SELL</option><option value="NO SIGNAL">No signal</option></select>
+    </section>
+    <section class="signals" id="signals"></section>
+
+    <section class="performance-row" id="performanceSection">
+      <div><div class="eyebrow">TRACK RECORD</div><h2 id="performanceHeadline">Building performance history…</h2><p id="performanceText">Signals are measured at 1h, 6h, 24h and 7d after detection.</p></div>
+      <div class="performance-badge">LIVE<br><span>outcomes</span></div>
+    </section>
+
+    <section class="disclaimer"><strong>Decision support, not certainty.</strong> CryptoSignal AI surfaces evidence and calculated signals. It does not guarantee future price movement. Review the evidence and risks before acting.</section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Primary navigation">
+    <button class="active" data-target="top"><span>⌂</span><b>Home</b></button>
+    <button data-target="radarSection"><span>◈</span><b>Radar</b></button>
+    <button data-target="signalsSection"><span>≋</span><b>Signals</b></button>
+    <button data-target="performanceSection"><span>◷</span><b>Track</b></button>
+  </nav>
+</div>
+
+<dialog id="detailDialog">
+  <div class="dialog-head"><div><div class="eyebrow">SIGNAL ANALYSIS</div><h2 id="detailTitle"></h2></div><button id="closeDialog" class="close-btn" aria-label="Close">×</button></div>
+  <div id="detailBody"></div>
+</dialog>
+
+<script src="data.js?v=0.7"></script>
+<script src="app.js?v=0.7"></script>
+<script>
+  document.querySelectorAll('.bottom-nav button').forEach(btn=>btn.addEventListener('click',()=>{
+    document.querySelectorAll('.bottom-nav button').forEach(x=>x.classList.remove('active')); btn.classList.add('active');
+    if(btn.dataset.target==='top'){window.scrollTo({top:0,behavior:'smooth'});return;}
+    document.getElementById(btn.dataset.target)?.scrollIntoView({behavior:'smooth',block:'start'});
+  }));
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js?v=0.7').catch(()=>{});
+</script>
+</body>
+</html>

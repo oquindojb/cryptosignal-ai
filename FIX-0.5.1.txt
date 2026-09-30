@@ -1,0 +1,10 @@
+CryptoSignal AI v0.6.0
+
+Fixes:
+- Scan now button is connected to POST /api/scan.
+- Shows scanning state while the request is running.
+- Shows the actual server error instead of silently doing nothing.
+- Disables cache for live API requests.
+- Keeps dashboard rendering shared between automatic load and manual scan.
+
+If Scan Now reports an error, the message displayed under the button identifies the server/API problem.
